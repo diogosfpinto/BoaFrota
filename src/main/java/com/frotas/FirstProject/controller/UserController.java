@@ -1,7 +1,6 @@
 package com.frotas.FirstProject.controller;
 
 import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.model.Vehicle;
 import com.frotas.FirstProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -28,12 +28,30 @@ public class VehicleController {
         return vehicleRepository.findAll();
     }
 
-    @GetMapping(path = "/vehicles/{id}")
+    @GetMapping(path = "/vehicle/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable (value = "id") Integer id){
         return vehicleRepository.findById(id)
                 .map(vehicle -> ResponseEntity.ok().body(vehicle))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/vehicle/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable (value = "id") Integer id,
+                                                     @RequestBody Vehicle vehicle){
+        return vehicleRepository.findById(id)
+                .map(vehicleToUpdate -> {
+                    vehicleToUpdate.setYear(vehicle.getYear());
+                    vehicleToUpdate.setModel(vehicle.getModel());
+                    vehicleToUpdate.setBrand(vehicle.getBrand());
+                    vehicleToUpdate.setColor(vehicle.getColor());
+                    vehicleToUpdate.setPlate(vehicle.getPlate());
+                    vehicleToUpdate.setRenavam(vehicle.getRenavam());
+                    Vehicle updated = vehicleRepository.save(vehicleToUpdate);
+                    return ResponseEntity.ok().body(updated);
+                }).orElse(ResponseEntity.notFound().build());
+    }
+
 
 }
