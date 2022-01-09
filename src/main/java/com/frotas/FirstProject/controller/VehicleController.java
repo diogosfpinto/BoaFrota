@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path="/demo")
+@RequestMapping(path="/vehicles")
 public class VehicleController {
 
     @Autowired
@@ -23,12 +23,12 @@ public class VehicleController {
         return "saved";
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path="/")
     public @ResponseBody Iterable<Vehicle> getAllVehicles(){
         return vehicleRepository.findAll();
     }
 
-    @GetMapping(path = "/vehicle/{id}")
+    @GetMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable (value = "id") Integer id){
         return vehicleRepository.findById(id)
@@ -36,7 +36,7 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/vehicle/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Vehicle> updateVehicleById(@PathVariable (value = "id") Integer id,
                                                      @RequestBody Vehicle vehicle){
