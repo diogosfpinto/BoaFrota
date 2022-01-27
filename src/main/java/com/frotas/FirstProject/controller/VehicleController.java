@@ -9,13 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path="/vehicles")
 public class VehicleController {
 
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    @PostMapping(path="/add")
+    /**
+     * Endpoint para cadastrar novo veículo
+     * @param vehicle Objeto veículo
+    **/
+    @PostMapping(path="/vehicle")
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addNewVehicle(@RequestBody Vehicle vehicle){
 
@@ -23,12 +26,12 @@ public class VehicleController {
         return "saved";
     }
 
-    @GetMapping(path="/")
+    @GetMapping(path="/vehicles")
     public @ResponseBody Iterable<Vehicle> getAllVehicles(){
         return vehicleRepository.findAll();
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/vehicle/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable (value = "id") Integer id){
         return vehicleRepository.findById(id)
@@ -36,7 +39,7 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/vehicle/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Vehicle> updateVehicleById(@PathVariable (value = "id") Integer id,
                                                      @RequestBody Vehicle vehicle){
@@ -50,6 +53,16 @@ public class VehicleController {
                     vehicleToUpdate.setRenavam(vehicle.getRenavam());
                     Vehicle updated = vehicleRepository.save(vehicleToUpdate);
                     return ResponseEntity.ok().body(updated);
+                }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/vehicle/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deleteVehiclebyId(@PathVariable (value = "id") Integer id){
+        return vehicleRepository.findById(id)
+                .map(vehicleToDelete ->{
+                    vehicleRepository.deleteById(id);
+                    return ResponseEntity.noContent().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
 
