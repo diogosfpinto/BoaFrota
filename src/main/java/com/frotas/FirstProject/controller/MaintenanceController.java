@@ -7,14 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@RequestMapping(path="/vehicles/{id}/maintenances")
+@RequestMapping(path="/vehicles/{id}")
 public class MaintenanceController {
 
     @Autowired
     private MaintenanceRepository maintenanceRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/maintenance")
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addNewMaintenance(@PathVariable (value = "id") Integer id,
                                                   @RequestBody Maintenance maintenance){
@@ -23,10 +25,11 @@ public class MaintenanceController {
     }
 
     //        Como buscar as manutenções de um veículo em específico
-/*    @GetMapping(path="/")
+    @GetMapping(path="/maintenances")
     @ResponseStatus(HttpStatus.OK)
-    public Iterable<Maintenance> getAllMaintenances(){
-        return maintenanceRepository.findAll();
-    }*/
+    public @ResponseBody List<Maintenance> getAllMaintenancesByIdVehicle
+                                            (@PathVariable (value = "id") Integer id){
+        return maintenanceRepository.findByVehicleId(id);
+    }
 
 }

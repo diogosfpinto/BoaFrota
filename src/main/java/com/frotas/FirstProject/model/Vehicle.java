@@ -1,9 +1,8 @@
 package com.frotas.FirstProject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Vehicle {
@@ -17,6 +16,17 @@ public class Vehicle {
     private int year;
     private String color;
     private String Renavam;
+
+    @OneToMany(mappedBy = "vehicle")
+    private List<Maintenance> maintenances;
+
+    public List<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
+    public void setMaintenances(List<Maintenance> maintenances) {
+        this.maintenances = maintenances;
+    }
 
     public Integer getId() {
         return id;

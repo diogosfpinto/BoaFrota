@@ -16,6 +16,7 @@ public class Maintenance {
     private String comments;
 
     @ManyToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     public Integer getId() {
