@@ -65,6 +65,4 @@ public class VehicleController {
                     return ResponseEntity.noContent().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
-
-
 }

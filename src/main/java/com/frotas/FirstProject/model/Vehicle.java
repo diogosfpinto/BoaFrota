@@ -1,5 +1,7 @@
 package com.frotas.FirstProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +19,8 @@ public class Vehicle {
     private String color;
     private String Renavam;
 
-    @OneToMany(mappedBy = "vehicle")
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Maintenance> maintenances;
 
     public List<Maintenance> getMaintenances() {
