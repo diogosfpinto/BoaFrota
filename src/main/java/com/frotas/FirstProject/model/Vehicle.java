@@ -23,6 +23,9 @@ public class Vehicle {
     @JsonIgnore
     private List<Maintenance> maintenances;
 
+    @ManyToMany(mappedBy = "vehicles")
+    private List<User> users;
+
     public List<Maintenance> getMaintenances() {
         return maintenances;
     }

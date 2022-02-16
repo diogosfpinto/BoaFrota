@@ -3,11 +3,9 @@ package com.frotas.FirstProject.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -18,6 +16,12 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_vehicle",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+    private List<Vehicle> vehicles;
 
     public Integer getId() {
         return id;
