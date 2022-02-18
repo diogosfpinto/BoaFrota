@@ -1,5 +1,6 @@
 package com.frotas.FirstProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,10 +18,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "user_vehicle",
-                joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
     private List<Vehicle> vehicles;
 
     public List<Vehicle> getVehicles() {

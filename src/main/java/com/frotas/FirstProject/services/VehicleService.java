@@ -1,10 +1,17 @@
 package com.frotas.FirstProject.services;
 
+import com.frotas.FirstProject.model.User;
 import com.frotas.FirstProject.model.Vehicle;
 import com.frotas.FirstProject.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
+import java.util.ArrayList;
 
 @Service
 public class VehicleService {
@@ -17,6 +24,9 @@ public class VehicleService {
      * @param vehicle Objeto veículo
      **/
     public Vehicle addNewVehicle(Vehicle vehicle){
+        ArrayList<User> users = new ArrayList<>();
+        users.add(getUserAuthenticated());
+        vehicle.setUsers(users);
         return vehicleRepository.save(vehicle);
     }
 
@@ -50,6 +60,15 @@ public class VehicleService {
                     vehicleRepository.deleteById(id);
                     return ResponseEntity.noContent().build();
                 }).orElse(ResponseEntity.notFound().build());
+    }
+
+    private User getUserAuthenticated(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+
+            return (User) authentication.getPrincipal();
+        }
+        return new User();
     }
 
 }

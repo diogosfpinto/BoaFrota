@@ -23,7 +23,10 @@ public class Vehicle {
     @JsonIgnore
     private List<Maintenance> maintenances;
 
-    @ManyToMany(mappedBy = "vehicles")
+    @ManyToMany
+    @JoinTable(name = "vehicle_user",
+            joinColumns = @JoinColumn(name = "vehicle_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     public List<User> getUsers() {
