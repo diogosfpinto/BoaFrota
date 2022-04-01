@@ -18,7 +18,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                        .antMatchers(HttpMethod.POST,"/user").permitAll()
+                .antMatchers(HttpMethod.GET, "/",
+                        "/swagger-ui.html",
+                        "/webjars/**",
+                        "/swagger-resources/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/user").permitAll()
                 .anyRequest().authenticated();
         http.formLogin();
         http.httpBasic();
@@ -31,7 +35,21 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        //Autenticação com usuário em banco de dados
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder());
+                .passwordEncoder(encoder);
+
+        //Métodos de Autenticação em memória
+        auth.inMemoryAuthentication().passwordEncoder(encoder)
+                .withUser("developer")
+                .password(encoder.encode("developer"))
+                .roles("ADMIN");
+
+        auth.inMemoryAuthentication().passwordEncoder(encoder)
+                .withUser("client")
+                .password(encoder.encode("client"))
+                .roles("USER");
     }
 }
