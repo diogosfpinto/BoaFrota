@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomMaintenanceRepository {
 
-    String saveMaintenanceByIdVehicle(Maintenance maintenance, Integer id);
+    Maintenance saveMaintenanceByIdVehicle(Maintenance maintenance, Integer id);
 }

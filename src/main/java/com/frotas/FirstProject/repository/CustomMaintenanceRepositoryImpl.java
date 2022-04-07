@@ -15,14 +15,14 @@ public class CustomMaintenanceRepositoryImpl implements CustomMaintenanceReposit
 
     @Override
     @Transactional
-    public String saveMaintenanceByIdVehicle(Maintenance maintenance, Integer id) {
+    public Maintenance saveMaintenanceByIdVehicle(Maintenance maintenance, Integer id) {
 
         Vehicle vehicle = new Vehicle();
 
         vehicle.setId(id);
         maintenance.setVehicle(vehicle);
         entityManager.persist(maintenance);
-        return "ID do veículo: " + id;
+        return maintenance;
     }
 
 

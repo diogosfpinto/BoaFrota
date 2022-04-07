@@ -2,6 +2,7 @@ package com.frotas.FirstProject.controller;
 
 import com.frotas.FirstProject.model.Maintenance;
 import com.frotas.FirstProject.repository.MaintenanceRepository;
+import com.frotas.FirstProject.services.MaintenanceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,7 +18,7 @@ import java.util.List;
 public class MaintenanceController {
 
     @Autowired
-    private MaintenanceRepository maintenanceRepository;
+    private MaintenanceService maintenanceService;
 
     @ApiOperation("Inserindo uma manutenção para o veículo selecionado")
     @ApiResponses(value = {
@@ -27,10 +28,10 @@ public class MaintenanceController {
     })
     @PostMapping("/maintenance")
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody String addNewMaintenance(@PathVariable (value = "id") Integer id,
+    public @ResponseBody Maintenance addNewMaintenance(@PathVariable (value = "id") Integer id,
                                                   @RequestBody Maintenance maintenance){
 
-        return maintenanceRepository.saveMaintenanceByIdVehicle(maintenance, id);
+        return maintenanceService.addNewMaintenance(maintenance, id);
     }
 
     //        Como buscar as manutenções de um veículo em específico
@@ -39,7 +40,6 @@ public class MaintenanceController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<Maintenance> getAllMaintenancesByIdVehicle
                                             (@PathVariable (value = "id") Integer id){
-        return maintenanceRepository.findByVehicleId(id);
+        return maintenanceService.getAllMaintenancesByIdVehicle(id);
     }
-
 }
