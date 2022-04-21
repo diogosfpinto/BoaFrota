@@ -36,4 +36,12 @@ public class MaintenanceService {
                     return ResponseEntity.ok().body(updated);
                 }).orElse(ResponseEntity.notFound().build());
     }
+
+    public ResponseEntity<Object> deleteMaintenanceById(Integer id){
+        return maintenanceRepository.findById(id)
+                .map(maintenanceToDelete ->{
+                    maintenanceRepository.deleteById(id);
+                    return ResponseEntity.noContent().build();
+                }).orElse(ResponseEntity.notFound().build());
+    }
 }

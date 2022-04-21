@@ -55,4 +55,16 @@ public class MaintenanceController {
                                                      @RequestBody Maintenance maintenance){
         return maintenanceService.updateMaintenanceById(id, maintenance);
     }
+
+    @ApiOperation("Excluindo manutenção do sistema.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Registro de manutenção excluído com sucesso."),
+            @ApiResponse(code = 500,
+                    message = "Houve um erro ao excluir a manuntenção, verifique as informações.")
+    })
+    @DeleteMapping("/maintenance/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deleteMaintenanceById(@PathVariable (value = "id") Integer id){
+        return maintenanceService.deleteMaintenanceById(id);
+    }
 }
