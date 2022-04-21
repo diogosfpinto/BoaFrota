@@ -1,13 +1,13 @@
 package com.frotas.FirstProject.controller;
 
 import com.frotas.FirstProject.model.Maintenance;
-import com.frotas.FirstProject.repository.MaintenanceRepository;
 import com.frotas.FirstProject.services.MaintenanceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +41,18 @@ public class MaintenanceController {
     public @ResponseBody List<Maintenance> getAllMaintenancesByIdVehicle
                                             (@PathVariable (value = "id") Integer id){
         return maintenanceService.getAllMaintenancesByIdVehicle(id);
+    }
+
+    @ApiOperation("Atualizando dados de manutenção por ID.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Manutenção atualizada com sucesso."),
+            @ApiResponse(code = 500,
+                    message = "Houve um erro ao atualizar o registro de manutenção, verifique as informações.")
+    })
+    @PutMapping("/maintenance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Maintenance> updateMaintenanceById(@PathVariable (value = "id") Integer id,
+                                                     @RequestBody Maintenance maintenance){
+        return maintenanceService.updateMaintenanceById(id, maintenance);
     }
 }
