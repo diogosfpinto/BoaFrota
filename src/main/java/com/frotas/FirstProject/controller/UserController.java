@@ -1,6 +1,7 @@
 package com.frotas.FirstProject.controller;
 
 import com.frotas.FirstProject.model.User;
+import com.frotas.FirstProject.model.Vehicle;
 import com.frotas.FirstProject.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -49,5 +50,18 @@ public class UserController {
     @GetMapping(path="/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable (value = "id") Integer id){
         return userService.getUserById(id);
+    }
+
+    @ApiOperation("Atualizando dados do usuário por ID.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Usuário atualizado com sucesso."),
+            @ApiResponse(code = 500,
+                    message = "Houve um erro ao atualizar Usuário, verifique as informações.")
+    })
+    @PutMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<User> updateUserById(@PathVariable (value = "id") Integer id,
+                                                     @RequestBody User user){
+        return userService.updateUserById(id, user);
     }
 }

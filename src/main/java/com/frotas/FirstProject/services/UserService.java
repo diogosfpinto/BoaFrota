@@ -3,6 +3,8 @@ package com.frotas.FirstProject.services;
 import com.frotas.FirstProject.model.User;
 import com.frotas.FirstProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public User addNewUser(User user){
         String pws = user.getPassword();
-        user.setPassword(new BCryptPasswordEncoder().encode(pws));
+        user.setPassword(passwordEncoder.encode(pws));
 
         return userRepository.save(user);
     }
@@ -34,4 +38,14 @@ public class UserService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    public ResponseEntity<User> updateUserById(Integer id, User user){
+        return userRepository.findById(id).map(
+                userToUpdate -> {
+                    userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+                    userToUpdate.setEmail(user.getEmail());
+                    userToUpdate.setName(user.getName());
+                    User updated = userRepository.save(userToUpdate);
+                    return ResponseEntity.ok().body(updated);
+                }).orElse(ResponseEntity.notFound().build());
+    }
 }
