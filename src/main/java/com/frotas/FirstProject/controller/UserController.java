@@ -58,10 +58,9 @@ public class UserController {
             @ApiResponse(code = 500,
                     message = "Houve um erro ao atualizar Usuário, verifique as informações.")
     })
-    @PutMapping("/user/{id}")
+    @PutMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<User> updateUserById(@PathVariable (value = "id") Integer id,
-                                                     @RequestBody User user){
-        return userService.updateUserById(id, user);
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        return userService.updateUser(user);
     }
 }
