@@ -29,6 +29,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/swagger-resources/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/user").permitAll()
+                .antMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/users/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated();
         http.formLogin();
         http.httpBasic();
