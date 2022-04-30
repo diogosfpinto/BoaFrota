@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Vehicle> vehicles;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id",
                     referencedColumnName = "id"),
@@ -72,7 +72,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles;
     }
 
     public String getPassword() {
