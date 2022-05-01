@@ -63,4 +63,16 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user){
         return userService.updateUser(user);
     }
+
+    @ApiOperation("Excluindo um usuário do sistema.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Usuário excluído com sucesso."),
+            @ApiResponse(code = 500,
+                    message = "Houve um erro ao excluir o usuário, verifique as informações.")
+    })
+    @DeleteMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deleteVUserbyId(@PathVariable (value = "id") Integer id){
+        return userService.deleteUserbyId(id);
+    }
 }

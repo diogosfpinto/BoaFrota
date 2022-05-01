@@ -63,4 +63,13 @@ public class UserService {
         }
         return new User();
     }
+
+    public ResponseEntity<Object> deleteUserbyId(Integer id) {
+
+        return userRepository.findById(id)
+                .map(userToDelete ->{
+                    userRepository.deleteById(id);
+                    return ResponseEntity.noContent().build();
+                }).orElse(ResponseEntity.notFound().build());
+    }
 }
