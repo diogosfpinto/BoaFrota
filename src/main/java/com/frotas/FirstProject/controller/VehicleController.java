@@ -1,5 +1,6 @@
 package com.frotas.FirstProject.controller;
 
+import com.frotas.FirstProject.model.User;
 import com.frotas.FirstProject.model.Vehicle;
 import com.frotas.FirstProject.services.VehicleService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class VehicleController {
@@ -78,5 +81,19 @@ public class VehicleController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteVehiclebyId(@PathVariable (value = "id") Integer id){
         return vehicleService.deleteVehiclebyId(id);
+    }
+
+    @ApiOperation("Retornando todos usuários de um veículo informado.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Usuários retornados com sucesso."),
+            @ApiResponse(code = 500,
+                    message = "Houve um erro ao retornar usuários deste veículo, verifique as informações.")
+    })
+    @GetMapping(path = "/vehicle/{id}/users")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<User> getUsersByVehicleId(@PathVariable (value = "id") Integer id){
+        List<User> users = vehicleService.getUsersByVehicleId(id);
+        System.out.println("Size: "+users.size());
+        return users;
     }
 }

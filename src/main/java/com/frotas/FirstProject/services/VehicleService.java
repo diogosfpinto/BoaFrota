@@ -2,7 +2,9 @@ package com.frotas.FirstProject.services;
 
 import com.frotas.FirstProject.model.User;
 import com.frotas.FirstProject.model.Vehicle;
+import com.frotas.FirstProject.repository.UserRepository;
 import com.frotas.FirstProject.repository.VehicleRepository;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -10,14 +12,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Endpoint para cadastrar novo veículo
@@ -71,4 +75,9 @@ public class VehicleService {
         return new User();
     }
 
+   public List<User> getUsersByVehicleId(Integer id) {
+
+        return vehicleRepository.findById(id).map(vehicle -> vehicle.getUsers())
+           .orElse(new ArrayList<>());
+   }
 }
