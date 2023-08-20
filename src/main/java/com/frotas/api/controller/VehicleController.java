@@ -1,9 +1,8 @@
-package com.frotas.FirstProject.controller;
+package com.frotas.api.controller;
 
-import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.model.Vehicle;
-import com.frotas.FirstProject.services.VehicleService;
-import io.swagger.annotations.Api;
+import com.frotas.api.model.User;
+import com.frotas.api.model.Vehicle;
+import com.frotas.api.services.VehicleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -95,5 +94,12 @@ public class VehicleController {
         List<User> users = vehicleService.getUsersByVehicleId(id);
         System.out.println("Size: "+users.size());
         return users;
+    }
+
+    @PostMapping(path = "/vehicle/{id}/users/{id_user}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Vehicle> saveUsersInVehicle(@PathVariable (value = "id") Integer idVehicle,
+                                                      @PathVariable (value = "id_user") Integer idUser){
+        return vehicleService.addUserOnVehicle(idUser, idVehicle);
     }
 }

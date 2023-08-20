@@ -1,4 +1,4 @@
-package com.frotas.FirstProject.model;
+package com.frotas.api.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

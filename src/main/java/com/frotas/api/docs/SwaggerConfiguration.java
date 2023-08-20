@@ -1,4 +1,4 @@
-package com.frotas.FirstProject.docs;
+package com.frotas.api.docs;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

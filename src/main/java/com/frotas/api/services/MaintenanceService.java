@@ -1,8 +1,7 @@
-package com.frotas.FirstProject.services;
+package com.frotas.api.services;
 
-import com.frotas.FirstProject.model.Maintenance;
-import com.frotas.FirstProject.repository.MaintenanceRepository;
-import org.jboss.jandex.Main;
+import com.frotas.api.model.Maintenance;
+import com.frotas.api.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

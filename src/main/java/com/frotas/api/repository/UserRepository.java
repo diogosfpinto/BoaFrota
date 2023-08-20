@@ -1,6 +1,6 @@
-package com.frotas.FirstProject.repository;
+package com.frotas.api.repository;
 
-import com.frotas.FirstProject.model.User;
+import com.frotas.api.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Integer> {

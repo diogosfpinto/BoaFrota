@@ -1,8 +1,7 @@
-package com.frotas.FirstProject.controller;
+package com.frotas.api.controller;
 
-import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.model.Vehicle;
-import com.frotas.FirstProject.services.UserService;
+import com.frotas.api.model.User;
+import com.frotas.api.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

@@ -1,6 +1,6 @@
-package com.frotas.FirstProject.repository;
+package com.frotas.api.repository;
 
-import com.frotas.FirstProject.model.Maintenance;
+import com.frotas.api.model.Maintenance;
 import org.springframework.stereotype.Repository;
 
 @Repository

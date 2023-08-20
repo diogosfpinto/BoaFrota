@@ -1,7 +1,7 @@
-package com.frotas.FirstProject.controller;
+package com.frotas.api.controller;
 
-import com.frotas.FirstProject.model.Maintenance;
-import com.frotas.FirstProject.services.MaintenanceService;
+import com.frotas.api.model.Maintenance;
+import com.frotas.api.services.MaintenanceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

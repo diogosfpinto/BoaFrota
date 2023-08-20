@@ -1,7 +1,7 @@
-package com.frotas.FirstProject.security;
+package com.frotas.api.security;
 
-import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.repository.UserRepository;
+import com.frotas.api.model.User;
+import com.frotas.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

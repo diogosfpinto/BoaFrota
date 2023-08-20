@@ -1,10 +1,9 @@
-package com.frotas.FirstProject.services;
+package com.frotas.api.services;
 
-import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.model.Vehicle;
-import com.frotas.FirstProject.repository.UserRepository;
-import com.frotas.FirstProject.repository.VehicleRepository;
-import org.slf4j.Logger;
+import com.frotas.api.model.User;
+import com.frotas.api.model.Vehicle;
+import com.frotas.api.repository.UserRepository;
+import com.frotas.api.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -79,5 +78,15 @@ public class VehicleService {
 
         return vehicleRepository.findById(id).map(vehicle -> vehicle.getUsers())
            .orElse(new ArrayList<>());
+   }
+
+   public ResponseEntity<Vehicle> addUserOnVehicle(Integer idUser, Integer idVehicle) {
+
+        return vehicleRepository.findById(idVehicle).map(vehicle -> {
+            List<User> users = vehicle.getUsers();
+            userRepository.findById(idUser).map(user -> users.add(user));
+            Vehicle saved = vehicleRepository.save(vehicle);
+            return ResponseEntity.ok().body(saved);
+        }).orElse(ResponseEntity.notFound().build());
    }
 }

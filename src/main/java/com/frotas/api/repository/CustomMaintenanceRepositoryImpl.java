@@ -1,7 +1,7 @@
-package com.frotas.FirstProject.repository;
+package com.frotas.api.repository;
 
-import com.frotas.FirstProject.model.Maintenance;
-import com.frotas.FirstProject.model.Vehicle;
+import com.frotas.api.model.Maintenance;
+import com.frotas.api.model.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

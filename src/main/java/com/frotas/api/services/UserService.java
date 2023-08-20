@@ -1,10 +1,8 @@
-package com.frotas.FirstProject.services;
+package com.frotas.api.services;
 
-import com.frotas.FirstProject.model.User;
-import com.frotas.FirstProject.repository.UserRepository;
+import com.frotas.api.model.User;
+import com.frotas.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

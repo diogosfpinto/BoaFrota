@@ -1,9 +1,8 @@
-package com.frotas.FirstProject.model;
+package com.frotas.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -35,6 +34,10 @@ public class Vehicle {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public void setUser(User user) {
+        this.users.add(user);
     }
 
     public List<Maintenance> getMaintenances() {
